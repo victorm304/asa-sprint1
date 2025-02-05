@@ -1,0 +1,16 @@
+services:
+  dns:
+    build:
+      context: ./dns
+      dockerfile: Dockerfile
+    container_name: sprint1-dns
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    networks:
+      - app_network
+    
+networks:
+  app_network:
+    driver: bridge
+      

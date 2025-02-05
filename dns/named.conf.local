@@ -1,4 +1,5 @@
 zone "tibau.asa.br" {
     type master;
     file "/etc/bind/db.tibau.br";
+    allow-query { any; };
 };
