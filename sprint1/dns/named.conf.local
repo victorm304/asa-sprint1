@@ -1,0 +1,4 @@
+zone "areiabranca.com.br" {
+    type master;
+    file "/etc/bind/areiabranca.hosts";
+};

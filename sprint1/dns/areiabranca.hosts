@@ -1,0 +1,24 @@
+$TTL 3600
+@          IN      SOA     areiabranca.com.br. admin.areiabranca.com.br. (
+                     2025020506
+                     3600
+                     600
+                     1209600
+                     3600 )
+
+@          IN      NS      ns.areiabranca.com.br.
+
+@          IN      A       192.168.100.222
+ns         IN      A       192.168.100.222
+proxy      IN      A       192.168.100.222
+mail       IN      A       192.168.100.222
+webmail    IN      A       192.168.100.222
+site1.areiabranca.com.br.      IN      A       192.168.100.222
+site2.areiabranca.com.br.      IN      A       192.168.100.222
+
+
+@          IN      MX      1 mail.
+
+www        IN      CNAME   @
+www        IN      CNAME site1.areiabranca.com.br.
+www        IN      CNAME site2.areiabranca.com.br.
