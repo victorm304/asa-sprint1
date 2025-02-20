@@ -1,0 +1,95 @@
+services:
+  dns:
+    build:
+      context: ./dns
+      dockerfile: Dockerfile
+    container_name: sprint1-dns
+    ports:
+      - "8053:53/udp"
+
+    networks:
+      - app_network
+  nginx-proxy:
+    image: nginx:latest
+    container_name: nginx_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./proxy/conf.d:/etc/nginx/conf.d
+      - ./proxy/ssl:/etc/nginx/ssl
+    depends_on:
+      - wordpress1
+      - wordpress2
+    networks:
+      - app_network
+
+  db1:
+    image: mysql:latest
+    container_name: wordpress_db1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp_pass
+    volumes:
+      - db_data1:/var/lib/mysql
+
+
+  wordpress1:
+    image: wordpress:latest
+    container_name: wordpress_app1
+    restart: always
+    depends_on:
+      - db1
+    environment:
+      WORDPRESS_DB_HOST: db1:3306
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: wp_pass
+      WORDPRESS_DB_NAME: wordpress
+      VIRTUAL_HOST: areiabranca.com.br
+    volumes:
+      - wordpress_data1:/var/www/html
+    networks:
+      - app_network
+
+  db2:
+    image: mysql:latest
+    container_name: wordpress_db2
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp_pass
+    volumes:
+      - db_data2:/var/lib/mysql
+  wordpress2:
+    image: wordpress:latest
+    container_name: wordpress_app2
+    restart: always
+    depends_on:
+      - db2
+    environment:
+      WORDPRESS_DB_HOST: db2:3306
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: wp_pass
+      WORDPRESS_DB_NAME: wordpress
+      VIRTUAL_HOST: pontanegra.com.br
+    volumes:
+      - wordpress_data2:/var/www/html
+    networks:
+      - app_network
+
+volumes:
+  db_data1:
+  db_data2:
+  wordpress_data1:
+  wordpress_data2:
+
+networks:
+  app_network:
+    driver: bridge
+      
