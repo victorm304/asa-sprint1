@@ -1,4 +1,4 @@
-# Projeto Docker Compose - Ambiente WordPress com SSH
+# Projeto Docker Compose - Ambiente WordPress
 
 Este repositório contém uma configuração de ambiente utilizando Docker Compose para executar um ambiente WordPress com bancos de dados MySQL e um container SSH. 
 
