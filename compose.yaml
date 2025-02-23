@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   ssh:
     build:
@@ -6,6 +8,9 @@ services:
     container_name: ssh_container
     ports:
       - "22:22"
+    networks:
+      - app_network
+  
   dns:
     build:
       context: ./dns
@@ -14,9 +19,9 @@ services:
     ports:
       - "53:53/udp"
       - "53:53/tcp"
+    networks:
+      - app_network
 
-    # networks:
-    #   - app_network
   nginx-proxy:
     image: nginx:latest
     container_name: nginx_proxy
@@ -46,7 +51,6 @@ services:
       - db_data1:/var/lib/mysql
     networks:
       - app_network
-
 
   wordpress1:
     image: wordpress:latest
@@ -79,6 +83,7 @@ services:
       - db_data2:/var/lib/mysql
     networks:
       - app_network
+
   wordpress2:
     image: wordpress:latest
     container_name: wordpress_app2
@@ -106,4 +111,3 @@ volumes:
 networks:
   app_network:
     driver: bridge
-      
