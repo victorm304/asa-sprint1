@@ -1,5 +1,6 @@
 #!/bin/bash
-cd ./sprint1/dns
+DNS_DIR="./sprint1/dns"
+cd "$DNS_DIR" || exit
 
 # Definindo os domínios e o IP
 zones=("areiabranca.com.br" "golfinhos.com.br" "madeiro.com.br" "pontanegra.com.br" "praiadoamor.com.br" "praiadoforte.com.br" "praiadomeio.com.br")
