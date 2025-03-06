@@ -1,7 +1,18 @@
+zone "praiadoforte.com.br" {
+    type master;
+    file "/etc/bind/praiadoforte.com.br.zone";
+};
+
 zone "praiadomeio.com.br" {
     type master;
     file "/etc/bind/praiadomeio.com.br.zone";
 };
+
+zone "praiadoamor.com.br" {
+    type master;
+    file "/etc/bind/praiadoamor.com.br.zone";
+};
+
 
 zone "pontanegra.com.br" {
     type master;

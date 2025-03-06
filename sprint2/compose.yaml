@@ -1,9 +1,9 @@
 services:
-  ssh:
+  sprint2-ssh:
     build:
       context: ./ssh
       dockerfile: Dockerfile
-    container_name: ssh_container
+    container_name: sprint2-ssh_container
     ports:
       - "2221:22"
     networks:

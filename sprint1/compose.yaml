@@ -1,4 +1,14 @@
 services:
+  sprint1-ssh:
+    build:
+      context: ./ssh
+      dockerfile: Dockerfile
+    container_name: sprint1-ssh_container
+    ports:
+      - "2220:22"
+    networks:
+      - sprint1_network
+
   dns:
     build:
       context: ./dns

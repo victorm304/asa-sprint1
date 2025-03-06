@@ -12,12 +12,16 @@ COPY ./pontanegra.com.br.zone /etc/bind
 COPY ./praiadomeio.com.br.zone /etc/bind
 COPY ./madeiro.com.br.zone /etc/bind
 COPY ./golfinhos.com.br.zone /etc/bind
+COPY ./praiadoforte.com.br.zone /etc/bind
+COPY ./praiadoamor.com.br.zone /etc/bind
 
 RUN chgrp bind /etc/bind/praiadomeio.com.br.zone 
 RUN chgrp bind /etc/bind/pontanegra.com.br.zone
 RUN chgrp bind /etc/bind/areiabranca.com.br.zone
 RUN chgrp bind /etc/bind/madeiro.com.br.zone
 RUN chgrp bind /etc/bind/golfinhos.com.br.zone
+RUN chgrp bind /etc/bind/praiadoamor.com.br.zone
+RUN chgrp bind /etc/bind/praiadoforte.com.br.zone
 
 RUN chgrp bind /etc/bind/named.conf.local
 RUN chmod 770 /etc/bind/*
