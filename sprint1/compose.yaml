@@ -1,0 +1,30 @@
+services:
+  dns:
+    build:
+      context: ./dns
+      dockerfile: Dockerfile
+    container_name: sprint1-dns
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    networks:
+      - sprint1_network
+
+  sprint1-nginx-proxy:
+    image: nginx:latest
+    container_name: sprint1-nginx_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./proxy/conf.d:/etc/nginx/conf.d
+      - ./proxy/ssl:/etc/nginx/ssl
+ 
+    networks:
+      - sprint1_network
+
+
+networks:
+  sprint1_network:
+    external: true

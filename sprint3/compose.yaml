@@ -1,0 +1,104 @@
+services:
+  sprint3-ssh:
+    build:
+      context: ./ssh
+      dockerfile: Dockerfile
+    container_name: sprint3-ssh
+    ports:
+      - "2222:22"
+    networks:
+      - sprint3-network
+
+  sprint3-nginx-proxy:
+    image: nginx:latest
+    container_name: sprint3-nginx_proxy
+    restart: always
+    ports:
+      - "8083:8083"
+      - "43443:43443"
+    volumes:
+      - ./proxy/conf.d:/etc/nginx/conf.d
+      - ./proxy/ssl:/etc/nginx/ssl
+    depends_on:
+      - wordpress_madeiro
+      - wordpress_golfinhos
+    networks:
+      - sprint3-network
+      - sprint1_network
+
+  db3:
+    image: mysql:8.0
+    container_name: wordpress_db3
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp_pass
+    volumes:
+      - db_data3:/var/lib/mysql
+    networks:
+      - sprint3-network
+
+  wordpress_madeiro:
+    image: wordpress:latest
+    container_name: wordpress_app3
+    restart: always
+    depends_on:
+      - db3
+    environment:
+      WORDPRESS_DB_HOST: db3:3306
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: wp_pass
+      WORDPRESS_DB_NAME: wordpress
+      VIRTUAL_HOST: madeiro.com.br
+    volumes:
+      - wordpress_data1:/var/www/html
+      - ./customPage/custom1.php:/var/www/html/wp-admin/install.php
+    networks:
+      - sprint3-network
+
+  db4:
+    image: mysql:8.0
+    container_name: wordpress_db4
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp_pass
+    volumes:
+      - db_data4:/var/lib/mysql
+    networks:
+      - sprint3-network
+
+  wordpress_golfinhos:
+    image: wordpress:latest
+    container_name: wordpress_app4
+    restart: always
+    depends_on:
+      - db4
+    environment:
+      WORDPRESS_DB_HOST: db4:3306
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: wp_pass
+      WORDPRESS_DB_NAME: wordpress
+      VIRTUAL_HOST: golfinhos.com.br
+    volumes:
+      - wordpress_data2:/var/www/html
+      - ./customPage/custom2.php:/var/www/html/wp-admin/install.php
+    networks:
+      - sprint3-network
+
+volumes:
+  db_data3:
+  db_data4:
+  wordpress_data1:
+  wordpress_data2:
+
+networks:
+  sprint3-network:
+    driver: bridge
+
+  sprint1_network:
+    external: true
