@@ -1,7 +1,5 @@
 #!/bin/bash
-
-DNS_DIR="./sprint1/dns"
-cd "$DNS_DIR" || exit
+cd ./sprint1/dns
 
 # Definindo os domínios e o IP
 zones=("areiabranca.com.br" "golfinhos.com.br" "madeiro.com.br" "pontanegra.com.br" "praiadoamor.com.br" "praiadoforte.com.br" "praiadomeio.com.br")
@@ -9,8 +7,9 @@ ip=$(netstat -rn | grep "0.0.0.0" | awk 'NR==1 {print $4}')
 
 # Loop para criar os arquivos de zona para cada domínio
 for dom in "${zones[@]}"; do
-    # Criando o conteúdo do arquivo de zona
-    body="$TTL 86400
+    # Criando o conteúdo do arquivo de zona corretamente
+    cat <<EOF > "$dom.zone"
+\$TTL 86400
 @   IN  SOA ns1.$dom. admin.$dom. (
         2025022003  
         3600        
@@ -27,12 +26,7 @@ www IN  A   $ip
 
 @   IN  MX  10 mail.$dom.
 mail IN  A   $ip
-"
+EOF
 
-    # Nome do arquivo a ser criado
-    arquivo="$dom.zone"
-
-    # Escrevendo o conteúdo no arquivo
-    echo "$body" > "$arquivo"
-    echo "Arquivo de zona para $dom criado com sucesso: $arquivo"
+    echo "Arquivo de zona para $dom criado com sucesso: $dom.zone"
 done

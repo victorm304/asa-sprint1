@@ -1,14 +1,17 @@
 $TTL 86400
 @   IN  SOA ns1.praiadoforte.com.br. admin.praiadoforte.com.br. (
-        2025022001  
+        2025022003  
         3600        
         1800        
         1209600     
         86400 )     
- 
+
     IN  NS  ns1.praiadoforte.com.br.
     IN  NS  ns2.praiadoforte.com.br.
 @   IN  A   192.168.100.222
 ns1 IN  A   192.168.100.222
 ns2 IN  A   192.168.100.222
 www IN  A   192.168.100.222
+
+@   IN  MX  10 mail.praiadoforte.com.br.
+mail IN  A   192.168.100.222
