@@ -17,5 +17,3 @@ RUN echo "machado:projeto"|chpasswd
 
 
 CMD ["sh", "-c", "service syslog-ng start ; service postfix start ; service dovecot start; tail -F /var/log/mail.log"]
-
-ss
