@@ -12,7 +12,7 @@ COPY ./dovecot/10-auth.conf /etc/dovecot/conf.d
 RUN useradd -m victor
 RUN useradd -m machado
 
-RUN echo "bob:projeto"|chpasswd
+RUN echo "victor:projeto"|chpasswd
 RUN echo "machado:projeto"|chpasswd
 
 
