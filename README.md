@@ -10,4 +10,4 @@
 No diretório raiz do projeto, execute o seguinte comando para construir as imagens (caso necessário) e subir os containers:
 
 ```bash
-docker-compose up -d
+./run.sh up
